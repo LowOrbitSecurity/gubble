@@ -2,7 +2,8 @@
 
 **gubble** is a tool designed to audit Google Workspace group settings. It helps identify potential security risks associated with group configurations by analyzing settings such as who can join, view membership, post messages, view conversations, and more.
 
-![image](https://github.com/user-attachments/assets/b8a4c02b-91d9-42c9-9fdd-ac33adeb5cf3)
+![image](https://github.com/user-attachments/assets/67a8c56f-d7e9-498a-8494-5d35f98789a3)
+
 
 ## Setup
 
@@ -89,13 +90,14 @@ sudo gubble -credentials /path/to/credentials.json -domain yourdomain.com
 
 - Click to Authenticate to GCP.
 
-![image](https://github.com/user-attachments/assets/afcd3b2f-ed03-410a-a4fa-aef584efea72)
+![image](https://github.com/user-attachments/assets/df60b98d-e3df-46c9-9813-3f0bec78ee11)
 
 - Allow gubble access (Notice gubble is only getting access to the scopes provided during setup).
 
-![image](https://github.com/user-attachments/assets/183b318e-99ce-47fb-97ca-8ba00e6d21c2)
+![image](https://github.com/user-attachments/assets/3dd11f7b-d4af-4a34-b0ca-1aea85d95453)
 
 - After authentication, you may close the window and return to your terminal.
 
 ## Example Output
-![image](https://github.com/user-attachments/assets/e5113464-fd36-4c09-936b-2e884b8a7013)
+![image](https://github.com/user-attachments/assets/219ac2c9-db2a-4e39-aaf4-dbc1bea9fc02)
+
