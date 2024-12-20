@@ -73,8 +73,8 @@ func main() {
 	flag.Parse()
 
 	// If credential file is not provided, exit and print usage
-	if credentialsFile == "" {
-		fmt.Println("Error: -c flag is required")
+	if credentialsFile == "" || domainValue == "" {
+		fmt.Println("Error: -credentials and -domain flag is required")
 		flag.Usage()
 		os.Exit(1)
 	}
