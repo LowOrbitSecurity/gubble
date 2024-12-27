@@ -104,4 +104,4 @@ sudo gubble -credentials /path/to/credentials.json -domain yourdomain.com
 
 
 # Dev Tools
-If you're doing research with google groups, I've added tooling I've created to help test gubble. Please see ./dev/README.md
+If you're doing research with google groups, I've added tooling I've created to help test gubble. Please see [the dev readme](https://github.com/LowOrbitSecurity/gubble/tree/main/dev)
