@@ -1,4 +1,4 @@
-## manage-groups.go
+# manage-groups.go
 
 This code implements functions for creating and deleting demo groups in Google Workspace.
 
@@ -8,14 +8,11 @@ This code implements functions for creating and deleting demo groups in Google W
 
 ![image](https://github.com/user-attachments/assets/bfb2b4a7-02e3-45fc-b7e7-e9cca21e6421)
 
-
 - **RandomString:** Generates a random string of specified length for group name randomization.
 
 - **DeleteDemoGroups:** Deletes all groups with names starting with "demo-group-" within the specified domain.
 
 ![image](https://github.com/user-attachments/assets/a80d8f7f-d2ee-4e7c-bf1b-84acb47206c0)
-
-
 
 **Usage:**
 
@@ -27,6 +24,7 @@ sudo go run main.go  -credentials ~/Downloads/gubble.json -domain <yourdomain>.c
 ```
 
 Delete all demo groups
+
 ```bash
  sudo go run main.go  -credentials ~/Downloads/gubble.json -domain <yourdomain>.com -delete-demo
 ```

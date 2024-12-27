@@ -78,7 +78,6 @@ This section describes the process of setting up the OAuth consent screen for yo
 
 **Flags:**
 
-
 - `-credentials`: Path to the `gubble.json` credentials file (required).
 - `-domain`: Your Google Workspace domain (required).
 - `-log`: Location to save the log file (optional).
@@ -99,9 +98,15 @@ sudo gubble -credentials /path/to/credentials.json -domain yourdomain.com
 - After authentication, you may close the window and return to your terminal.
 
 ## Example Output
+
 ![image](https://github.com/user-attachments/assets/219ac2c9-db2a-4e39-aaf4-dbc1bea9fc02)
 
+### Dev Tools
 
+**Dev Flags:** (You probably don't need these)
+These flags require additional setup. Please see [the dev readme](https://github.com/LowOrbitSecurity/gubble/tree/main/dev)
 
-# Dev Tools
+- `-demo`: Demo mode. This will create 75 google groups.
+- `-delete-demo`: Deletes the groups made in the demo.
+
 If you're doing research with google groups, I've added tooling I've created to help test gubble. Please see [the dev readme](https://github.com/LowOrbitSecurity/gubble/tree/main/dev)
