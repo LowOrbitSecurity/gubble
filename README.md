@@ -5,6 +5,28 @@
 ![image](https://github.com/user-attachments/assets/67a8c56f-d7e9-498a-8494-5d35f98789a3)
 
 
+Google Groups is a service that allows users to create and manage online discussion groups and email lists. It provides a platform for communities and discussions, with features like email lists, web forums, Q&A forums, and collaborative inboxes. However, With great power comes great responsbility. A group with misconfigured permissions can lead to excessive data exposure and privielge escalation if the risks are not understood. 
+
+
+
+During penetration tests, testers often aim to identify groups that can be joined, groups that allow for many users to read privileged conversations, or groups configured in such a way that would make internal phishing easier. Gubble is a tool that aims to automate that process.
+
+
+|  METHOD NAME           |          Risky Permission            |                         Notes                                                                    |
+|------------------------|--------------------------------------|--------------------------------------------------------------------------------------------------|
+|whoCanJoin              |ANYONE_CAN_JOIN,ALL_IN_DOMAIN_CAN_JOIN|                                                                                                  |
+|whoCanViewMembership    |ALL_IN_DOMAIN_CAN_VIEW                |Only bad if you have "secret" projects                                                            |
+|whoCanViewGroup         |ANYONE_CAN_VIEW,ALL_IN_DOMAIN_CAN_VIEW|This means who can read conversations                                                             |
+|allowExternalMembers    |TRUE                                  |                                                                                                  |
+|whoCanPostMessage       |ALL_IN_DOMAIN_CAN_POST,ANYONE_CAN_POST|If archiveOnly is reverted from true to false, whoCanPostMessages is set to ALL_MANAGERS_CAN_POST.|
+|membersCanPostAsTheGroup|TRUE                                  |Useful for phishing                                                                               |
+|whoCanLeaveGroup        |NONE_CAN_LEAVE                        |                                                                                                  |
+|whoCanContactOwner      |ANYONE_CAN_CONTACT                    |                                                                                                  |
+|whoCanDiscoverGroup     |ANYONE_CAN_DISCOVER                   |                                                                                                  |
+|defaultSender           |GROUP                                 |                                                                                                  |
+
+
+
 ## Setup
 
 gubble requires the following permissions to function correctly:
@@ -16,14 +38,10 @@ gubble requires the following permissions to function correctly:
 
 These permissions are granted during the OAuth client configuration and consent screen setup. Make sure to enable the necessary APIs and add the required scopes to your OAuth client.
 
-### 1. Create a GCP Project
-Create a GCP project that can be used to configure the correction APIs and permissions needed for gubble to run.
+### 0. Create a GCP project
+Create a GCP project to run gubble in. 
 
-![image](https://github.com/user-attachments/assets/b2a5dcf2-1a67-4e82-9484-65c385876b03)
-
-After creation, switch to the newly created project 
-
-### 2. Enable APIs & Services
+### 1. Enable APIs & Services
 
 This section enables the necessary APIs (Admin SDK and Groups Settings API) in your Google Cloud console to allow gubble to access and analyze your Google Workspace group settings.
 
@@ -32,24 +50,41 @@ This section enables the necessary APIs (Admin SDK and Groups Settings API) in y
 3. Search for and enable the following APIs:
     - **Admin SDK API**
     - **Groups Settings API**
-  
-  ![image](https://github.com/user-attachments/assets/98fadf37-60d7-41ca-99cc-81b08a736b53)
 
+### 2. Create OAuth Client
 
-### 3. Create OAuth Consent Screen
+This section guides you through creating an OAuth client ID for gubble, which allows the tool to securely access your Google Workspace data with your authorization. This involves creating credentials in your Google Cloud console, downloading the configuration file, and renaming it to gubble.json for gubble to use.
 
-This section sets up the OAuth consent screen, which is what users in your Google Workspace domain will see when authorizing gubble to access their group information.
+1. Go to **APIs & Services -> Credentials** in your Google Cloud console.
+2. Click **Create Credentials -> OAuth client ID**.
+3. Select **Application Type:** Desktop App.
+4. Enter **Name:** gubble.
+5. Click **Create**.
+6. Download the generated JSON file.
+7. Move the downloaded JSON file to a suitable location and rename it to `gubble.json`:
 
-1. Go to **APIs & Services -> OAuth Consent Screen** in your Google Cloud console. (If you see "Go To New Experience", click it.)
-2. Select **Get Started**
-3. App Information:
-  - App Name: `gubble`
-  - User Support Email: `your_email@example.com`
-5. Contact Information:
-  - `your_email@example.com`
-4. App Information:
-  - Internal
-5. Click **Create**
+    ```bash
+    mv ~/Downloads/client_secret_* ~/Downloads/gubble.json
+    ``` 
+
+    > ⚠️ `gubble.json` contains sensitive data, KEEP IT SAFE. ⚠️
+
+### 3. OAuth Consent Screen Setup
+
+This section sets up the OAuth consent screen, which is what users in your Google Workspace domain will see when authorizing gubble to access their group information. This involves configuring the consent screen with basic app information and specifying the required permissions (scopes).
+
+1. Go to **APIs & Services -> OAuth Consent Screen** in your Google Cloud console.
+2. Select **User Type:** Internal.
+3. Click **Create**.
+4. Fill out the required information (App name, logo, etc.).
+5. In the **Scopes** section, add the same scopes as in the previous step:
+
+    ```markdown
+    https://www.googleapis.com/auth/admin.directory.group.readonly
+    https://www.googleapis.com/auth/apps.groups.settings
+    ```
+
+    > If you do not see these scopes, please ensure the Admin SDK API and Groups Settings API have been enabled.
 
 ### 4. Add Scopes to OAuth Client
 
@@ -63,34 +98,6 @@ This section describes the process of setting up the OAuth consent screen for yo
     | ------------------ | ----------------------------------------------------------- | -------------------------------------------- |
     | Admin SDK API      | `https://www.googleapis.com/auth/admin.directory.group.readonly` | View groups on your domain                   |
     | Groups Settings API | `https://www.googleapis.com/auth/apps.groups.settings`      | View and manage the settings of a G Suite group |
-
-
-    > If you do not see these scopes, please ensure the Admin SDK API and Groups Settings API have been enabled.
-
-![image](https://github.com/user-attachments/assets/8730ee80-37fc-4316-80b3-278bdb9fe0fb)
-
-4. Click **Save**
-
-
-### 5. Create OAuth Client
-
-This section guides you through creating an OAuth client ID for gubble, which allows the tool to securely access your Google Workspace data with your authorization. This involves creating credentials in your Google Cloud console, downloading the configuration file, and renaming it to gubble.json for gubble to use.
-
-Navigate to **APIs & Services** -> **OAuth Consent Screen** (Click **Go To New Experience** if prompted)
-1. Click **Clients** -> **Create Client** (You may have to refresh the page)
-2. Application type:
-  - Desktop app
-3. Name:
-  - `gubble`
-4. Click **Create**
-5. Click the **Download Arrow**
-6. Click **Download JSON**
-7. Rename the file to gubble.json. You will need to specify this credential with the `-credentials ~/Downloads/gubble.json` later.
-    ```bash
-    mv ~/Downloads/client_secret_* ~/Downloads/gubble.json
-    ``` 
-
-    > ⚠️ `gubble.json` contains sensitive data, KEEP IT SAFE. ⚠️
 
 ## Usage
 
