@@ -14,11 +14,11 @@ During penetration tests, testers often aim to identify groups that can be joine
 
 |  METHOD NAME           |          Risky Permission            |                         Notes                                                                    |
 |------------------------|--------------------------------------|--------------------------------------------------------------------------------------------------|
-|whoCanJoin              |ANYONE_CAN_JOIN,ALL_IN_DOMAIN_CAN_JOIN|Anyone in the domain can join the group. This could be used for privielge escalation.             |
+|whoCanJoin              |ANYONE_CAN_JOIN  ALL_IN_DOMAIN_CAN_JOIN|Anyone in the domain can join the group. This could be used for privielge escalation.             |
 |whoCanViewMembership    |ALL_IN_DOMAIN_CAN_VIEW                |Only bad if you have "secret" projects                                                            |
-|whoCanViewGroup         |ANYONE_CAN_VIEW,ALL_IN_DOMAIN_CAN_VIEW|This means who can read conversations                                                             |
+|whoCanViewGroup         |ANYONE_CAN_VIEW  ALL_IN_DOMAIN_CAN_VIEW|This means who can read conversations                                                             |
 |allowExternalMembers    |TRUE                                  |External Identities can be added to the group.                                                    |
-|whoCanPostMessage       |ALL_IN_DOMAIN_CAN_POST,ANYONE_CAN_POST|This can be utilized for phishing.                                                                |
+|whoCanPostMessage       |ALL_IN_DOMAIN_CAN_POST  ANYONE_CAN_POST|This can be utilized for phishing.                                                                |
 |membersCanPostAsTheGroup|TRUE                                  |This can be abused for phishing.                                                                  |
 |whoCanLeaveGroup        |NONE_CAN_LEAVE                        |This can be used as a honeypot. Make a juicy group name and alert on users joining it since they can't leave|
 |whoCanContactOwner      |ANYONE_CAN_CONTACT                    |                                                                                                  |
