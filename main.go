@@ -1,18 +1,18 @@
 package main
 
 // https://developers.google.com/admin-sdk/groups-settings/v1/reference/groups#json
-
 import (
 	"context"
 	"encoding/csv"
 	"flag"
 	"fmt"
+	"gubble/dev"
+	auth "gubble/utils"
 	"log"
 	"os"
 
-	auth "gubble/utils"
-
 	"github.com/fatih/color"
+	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	admin "google.golang.org/api/admin/directory/v1"
 	"google.golang.org/api/groupssettings/v1"
@@ -28,7 +28,8 @@ var credentialsFile string
 var domainValue string
 var logLocation string
 var verbose bool
-
+var demoMode bool
+var deleteDemoMode bool
 var banner = (`
 ⠀⠀⠀⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⠀⠀⠀⠀⠀⠀⠀⠀⣠⣦⡀⠀⠀⠀
 ⠀⠀⠛⣿⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⣿⠛⠀⠀⠀⠀⠀⡀⠺⣿⣿⠟⢀⡀⠀
@@ -70,6 +71,8 @@ func main() {
 	flag.StringVar(&domainValue, "domain", "", "Domain. IE: yourcompany.com")
 	flag.StringVar(&logLocation, "log", "", "Location to save logfile to. IE: ./groups.log")
 	flag.BoolVar(&verbose, "verbose", false, "Verbose mode. Prints information even if it's not a risk")
+	flag.BoolVar(&demoMode, "demo", false, "Demo mode. Creates 75 random groups for testing.")
+	flag.BoolVar(&deleteDemoMode, "delete-demo", false, "Delete demo mode. Deletes all groups created by the -demo flag.")
 	flag.Parse()
 
 	// If credential file is not provided, exit and print usage
@@ -85,14 +88,22 @@ func main() {
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
-
-	config, err := google.ConfigFromJSON(cred, admin.AdminDirectoryGroupReadonlyScope, groupssettings.AppsGroupsSettingsScope)
-	if err != nil {
-		log.Fatalf("Unable to parse client secret file to config: %v", err)
+	var config *oauth2.Config
+	if demoMode || deleteDemoMode {
+		// Request both read and write scopes for demo mode and deleteDemoMode
+		config, err = google.ConfigFromJSON(cred, admin.AdminDirectoryGroupScope, groupssettings.AppsGroupsSettingsScope)
+		if err != nil {
+			log.Fatalf("Unable to parse client secret file to config: %v", err)
+		}
+	} else {
+		// Request only read-only scope for normal mode
+		config, err = google.ConfigFromJSON(cred, admin.AdminDirectoryGroupReadonlyScope, groupssettings.AppsGroupsSettingsScope)
+		if err != nil {
+			log.Fatalf("Unable to parse client secret file to config: %v", err)
+		}
 	}
-
 	client := auth.GetClient(config)
-
+	fmt.Println(TICK, "Authentication Successful... Gathering groups. This may take a moment depending on the amount of groups...")
 	// Init service client object for use with the API
 	srv, err := admin.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
@@ -135,7 +146,7 @@ func main() {
 					MembersCanPostAsTheGroup: gs.MembersCanPostAsTheGroup,
 					WhoCanContactOwner:       gs.WhoCanContactOwner,
 					WhoCanDiscoverGroup:      gs.WhoCanDiscoverGroup,
-					//					DefaultSender:    gs.defaultSender,
+					//                    DefaultSender:    gs.defaultSender,
 				}
 
 				allGroupSettings = append(allGroupSettings, groupSettings)
@@ -151,9 +162,13 @@ func main() {
 	if logLocation != "" {
 		writelog(allGroupSettings)
 	}
-
+	if demoMode {
+		dev.CreateDemoGroups(srv, gsrv, domainValue)
+	}
+	if deleteDemoMode {
+		dev.DeleteDemoGroups(srv, domainValue)
+	}
 }
-
 func writelog(allGroupSettings []GroupSettings) {
 	fmt.Println(TICK, "Creating log file at", logLocation)
 	// Create CSV file for logging
