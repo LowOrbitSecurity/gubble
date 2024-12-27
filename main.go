@@ -83,14 +83,14 @@ func main() {
 	}
 
 	// #nosec:G304 -- Working as intended. This would allow for arbitrary file read if gubble were
-	// allowed to be run by untrused users froma webapp wrapper.
+	// allowed to be run by untrused users from a webapp wrapper.
 	cred, err := os.ReadFile(credentialsFile)
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
 	var config *oauth2.Config
 	if demoMode || deleteDemoMode {
-		// Request both read and write scopes for demo mode and deleteDemoMode
+		// Request both read and write scopes for demo mode and deleteDemoMode used by dev tools
 		config, err = google.ConfigFromJSON(cred, admin.AdminDirectoryGroupScope, groupssettings.AppsGroupsSettingsScope)
 		if err != nil {
 			log.Fatalf("Unable to parse client secret file to config: %v", err)
@@ -169,6 +169,7 @@ func main() {
 		dev.DeleteDemoGroups(srv, domainValue)
 	}
 }
+
 func writelog(allGroupSettings []GroupSettings) {
 	fmt.Println(TICK, "Creating log file at", logLocation)
 	// Create CSV file for logging
