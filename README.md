@@ -67,7 +67,7 @@ This section describes the process of setting up the OAuth consent screen for yo
 
     > If you do not see these scopes, please ensure the Admin SDK API and Groups Settings API have been enabled.
 
-![image](https://github.com/user-attachments/assets/d16c7fd6-89f6-4108-9ae1-5b74915882d4)
+![image](https://github.com/user-attachments/assets/8730ee80-37fc-4316-80b3-278bdb9fe0fb)
 
 4. Click **Save**
 
