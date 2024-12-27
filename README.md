@@ -118,7 +118,7 @@ Navigate to **APIs & Services** -> **OAuth Consent Screen** (Click **Go To New E
 
 - `-credentials`: Path to the `gubble.json` credentials file (required).
 - `-domain`: Your Google Workspace domain (required).
-- `-log`: Location to save the log file (optional).
+- `-log`: Location to save the csv file (optional).
 - `-verbose`: Verbose mode. Prints all group settings, even those not considered a risk (optional)# Usage
 
 ```bash
