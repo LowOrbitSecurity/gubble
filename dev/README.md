@@ -23,10 +23,10 @@ These functions are intended for development and testing purposes. They can be u
 Create Demo groups. The `-demo` and `-delete-demo` flags in the main program utilize these functions to create and delete demo groups, respectively.
 
 ```bash
-sudo go run main.go  -credentials ~/Downloads/gubble.json -domain loworbitsecurity.com -demo
+sudo go run main.go  -credentials ~/Downloads/gubble.json -domain <yourdomain>.com -demo
 ```
 
 Delete all demo groups
 ```bash
- sudo go run main.go  -credentials ~/Downloads/gubble.json -domain loworbitsecurity.com -delete-demo
+ sudo go run main.go  -credentials ~/Downloads/gubble.json -domain <yourdomain>.com -delete-demo
 ```
