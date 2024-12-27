@@ -101,3 +101,7 @@ sudo gubble -credentials /path/to/credentials.json -domain yourdomain.com
 ## Example Output
 ![image](https://github.com/user-attachments/assets/219ac2c9-db2a-4e39-aaf4-dbc1bea9fc02)
 
+
+
+# Dev Tools
+If you're doing research with google groups, I've added tooling I've created to help test gubble. Please see ./dev/README.md
