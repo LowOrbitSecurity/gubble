@@ -2,7 +2,7 @@
 
 **gubble** is a tool designed to audit Google Workspace group settings. It analyzes settings such as who can join, view membership, post messages, view conversations, and more to help identify potential security risks associated with group configurations.
 
-![image](https://github.com/user-attachments/assets/0bc80fd8-82bb-4369-b486-9e357076354a)
+![image](https://github.com/user-attachments/assets/ec355563-1260-45d2-8598-f5f3c763e766)
 
 
 Google Groups is a service that allows users to create and manage online discussion groups and email lists. It provides a platform for community discussions, with features like email lists, web forums, Q&A forums, and collaborative inboxes. However, with great power comes great responsibility. A group with misconfigured permissions can lead to excessive data exposure and privilege escalation if the risks are not understood.
