@@ -137,7 +137,7 @@ sudo gubble -credentials /path/to/credentials.json -domain yourdomain.com
 
 ## Example Output
 
-![image](https://github.com/user-attachments/assets/219ac2c9-db2a-4e39-aaf4-dbc1bea9fc02)
+![image](https://github.com/user-attachments/assets/8d13e777-0153-40c3-93c4-b0fd55bbd4a6)
 
 ### Dev Tools
 
