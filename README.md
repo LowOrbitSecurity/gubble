@@ -127,7 +127,7 @@ sudo gubble -credentials /path/to/credentials.json -domain yourdomain.com
 
 - Click to Authenticate to GCP.
 
-![image](https://github.com/user-attachments/assets/df60b98d-e3df-46c9-9813-3f0bec78ee11)
+![image](https://github.com/user-attachments/assets/9c872205-82d4-4462-9794-d6d54ce4bf31)
 
 - Allow gubble access (Notice gubble is only getting access to the scopes provided during setup).
 
