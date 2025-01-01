@@ -121,6 +121,9 @@ To build gubble from source the following steps can be performed:
 1. Install Latest version of Go [using the automated installation script](https://raw.githubusercontent.com/LowOrbitSecurity/go-installer/refs/heads/master/go.sh). 
 ```bash
 bash <(curl -sL https://raw.githubusercontent.com/LowOrbitSecurity/go-installer/refs/heads/master/go.sh)
+
+# Open a new terminal or source ~/.bashrc or ~/.zshrc depending on if you're using bash, zsh, etc
+source ~/.bashrc # Or just run bash 
 ```
 2. Clone the gubble repository and move into it
 ```bash
