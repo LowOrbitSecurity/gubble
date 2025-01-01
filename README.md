@@ -134,11 +134,11 @@ go build -o gubble
 ```bash
 ./gubble -h
 ```
-5. (Optinal) Move into path
+5. (Optional) Move into path
 ```bash
 sudo cp ./gubble /usr/bin/gubble
 ```
-6. (Optinal) Verify gubble is in path
+6. (Optional) Verify gubble is in path
 ```bash
 gubble -h
 ```
