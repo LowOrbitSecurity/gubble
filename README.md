@@ -112,6 +112,40 @@ Navigate to **APIs & Services** -> **OAuth Consent Screen** (Click **Go To New E
 
     > ⚠️ `gubble.json` contains sensitive data, KEEP IT SAFE. ⚠️
 
+### Install Gubble
+
+A compiled version of gubble can be found in the [releases tab](https://github.com/LowOrbitSecurity/gubble/releases). This was tested on ubuntu 24.04 but should work on most versions of linux.
+
+To build gubble from source the following steps can be performed:
+
+1. Install Latest version of Go [using the automated installation script](https://raw.githubusercontent.com/LowOrbitSecurity/go-installer/refs/heads/master/go.sh). 
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/LowOrbitSecurity/go-installer/refs/heads/master/go.sh)
+```
+2. Clone the gubble repository and move into it
+```bash
+git clone https://github.com/LowOrbitSecurity/gubble && cd gubble
+```
+3. Build gubble
+```bash
+go build -o gubble
+```
+4. Verify gubble is installed
+```bash
+./gubble -h
+```
+5. (Optinal) Move into path
+```bash
+sudo cp ./gubble /usr/bin/gubble
+```
+6. (Optinal) Verify gubble is in path
+```bash
+gubble -h
+```
+
+> Note: To complete the oauth flow, gubble must be run from a machine with a webbrowser installed. 
+
+
 ## Usage
 
 **Flags:**
